@@ -1,4 +1,10 @@
+//Npm Imports
 import { Component, OnInit } from '@angular/core';
+
+//Firebase Imports
+import { AuthService } from '../auth.service';
+
+//Local Imports
 
 @Component({
   selector: 'app-login',
@@ -7,9 +13,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private afauth:AuthService) { }
 
   ngOnInit(): void {
   }
 
+  login(){
+  this.afauth.login();
+  }
 }
