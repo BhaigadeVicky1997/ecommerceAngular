@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { AuthService } from '../auth.service';
 import { AppUser } from '../models/app-user';
+
 
 @Component({
   selector: 'bs-navbar',
@@ -8,22 +10,23 @@ import { AppUser } from '../models/app-user';
   styleUrls: ['./bs-navbar.component.scss']
 })
 export class BsNavbarComponent implements OnInit {
+  
   appUser:AppUser;
-  appUserAd:AppUser;
-  constructor(private afAuth: AuthService) {
-    afAuth.appUser$.subscribe( (appUser) => {
-      this.appUser = appUser;
-       this.appUserAd = appUser;
-    } )
+  constructor(public auth:AuthService) {
+      auth.appUsers$.subscribe(appData =>{
+        this.appUser = appData
+      })
    }
- 
-
-  ngOnInit(): void {
+  ngOnDestroy(): void {
   
   }
 
+  ngOnInit(): void {
+  }
+
   logOut(){
-    console.log('click');
-   this.afAuth.logOut; 
- }
+    
+    location.reload();
+    this.auth.logout();
+  }
 }

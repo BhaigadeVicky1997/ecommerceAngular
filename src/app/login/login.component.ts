@@ -1,8 +1,9 @@
 //Npm Imports
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-//Firebase Imports
 import { AuthService } from '../auth.service';
+//Firebase Imports
 
 //Local Imports
 
@@ -13,12 +14,14 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private afauth:AuthService) { }
+  constructor(private auth:AuthService,private route :ActivatedRoute) { }
 
   ngOnInit(): void {
   }
 
   login(){
-  this.afauth.login();
+    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    localStorage.setItem('returnUrl',returnUrl);
+    this.auth.login();
   }
 }
