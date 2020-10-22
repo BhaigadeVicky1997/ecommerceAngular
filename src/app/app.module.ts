@@ -3,13 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 //firebase Import
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+//NGRX Store Import
+import {StoreModule} from '@ngrx/store';
+
 //Local Imports
+import {reducers} from '../app/app.reducer';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +32,10 @@ import { AuthService } from './auth.service';
 import { AuthGuardServiceService } from './auth-guard-service.service';
 import { UserServiceService } from './user-service.service';
 import { AdminAuthGaurdService } from './admin-auth-gaurd.service';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { CategoriesService } from './categories.service';
+import { ProductService } from './product-service';
+
 
 @NgModule({
   declarations: [
@@ -40,15 +49,18 @@ import { AdminAuthGaurdService } from './admin-auth-gaurd.service';
     MyOrderComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    LoginComponent
+    LoginComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     NgbModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    StoreModule.forRoot(reducers),
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
 
@@ -66,11 +78,14 @@ import { AdminAuthGaurdService } from './admin-auth-gaurd.service';
 
       { path: 'admin/products', component: AdminProductsComponent ,canActivate:[AuthGuardServiceService,AdminAuthGaurdService]},
 
+      { path: 'admin/product/new', component: ProductFormComponent ,canActivate:[AuthGuardServiceService,AdminAuthGaurdService]},
+
+      { path: 'admin/product/:id', component: ProductFormComponent ,canActivate:[AuthGuardServiceService,AdminAuthGaurdService]},
 
       { path: 'admin/orders', component: AdminOrdersComponent ,canActivate:[AuthGuardServiceService,AdminAuthGaurdService]}
     ])
   ],
-  providers: [AuthService,AuthGuardServiceService,UserServiceService,AdminAuthGaurdService],
+  providers: [ProductService,AuthService,AuthGuardServiceService,UserServiceService,AdminAuthGaurdService,CategoriesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

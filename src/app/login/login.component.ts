@@ -1,8 +1,10 @@
 //Npm Imports
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { AuthService } from '../auth.service';
+import { login } from './login.actions';
 //Firebase Imports
 
 //Local Imports
@@ -14,7 +16,7 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private auth:AuthService,private route :ActivatedRoute) { }
+  constructor(private Store:Store,private auth:AuthService,private route :ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -24,4 +26,8 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('returnUrl',returnUrl);
     this.auth.login();
   }
+
+  // onSubmit(username: string, password: string) {
+  //   this.Store.dispatch(login({ username: username, password: password }));
+  // }
 }

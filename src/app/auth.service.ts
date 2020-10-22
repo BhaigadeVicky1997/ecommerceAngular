@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   login(){
-
+    
     this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
   }
 
