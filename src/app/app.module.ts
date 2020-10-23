@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
+
+
 //firebase Import
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -62,7 +64,7 @@ import { ProductService } from './product-service';
     AngularFireAuthModule,
     StoreModule.forRoot(reducers),
     RouterModule.forRoot([
-      { path: '', component: HomeComponent },
+      { path: '', component: ProductsComponent },
 
       { path: 'products', component: ProductsComponent },
 
