@@ -2,9 +2,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { AuthService } from '../auth.service';
-import { login } from './login.actions';
+import * as fromroot from '../app.reducer';
 //Firebase Imports
 
 //Local Imports
@@ -15,13 +16,18 @@ import { login } from './login.actions';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private Store:Store,private auth:AuthService,private route :ActivatedRoute) { }
+  
+  //Variable Declaration
+  isLoading:boolean = true;
+  
+  constructor(private auth:AuthService,private route :ActivatedRoute,private Store:Store<fromroot.State>) { }
 
   ngOnInit(): void {
+  
   }
 
   login(){
+    this.isLoading =false;
     let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl',returnUrl);
     this.auth.login();

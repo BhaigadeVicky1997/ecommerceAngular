@@ -5,7 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import { AppUser } from './models/app-user';
 import { UserServiceService } from './user-service.service';
 import  'rxjs/add/operator/switchMap';
-
+import { Store } from '@ngrx/store';
+import * as UI from '../app/shared/ui.actions';
+import * as fromroot from '../app/app.reducer';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,12 +16,12 @@ export class AuthService {
   
   user$: Observable<firebase.User>;
   
-  constructor(private afAuth:AngularFireAuth,private userService:UserServiceService) { 
+  constructor(private Store: Store<{ ui: fromroot.State }>,private afAuth:AngularFireAuth,private userService:UserServiceService) { 
     this.user$ = afAuth.authState;
   }
 
   login(){
-    
+   
     this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
   }
 

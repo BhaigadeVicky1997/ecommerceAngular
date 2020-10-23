@@ -12,8 +12,10 @@ import { AppUser } from '../models/app-user';
 export class BsNavbarComponent implements OnInit {
   
   appUser:AppUser;
+  isLoading:boolean = true;
   constructor(public auth:AuthService) {
       auth.appUsers$.subscribe(appData =>{
+        this.isLoading =false;
         this.appUser = appData
       })
    }

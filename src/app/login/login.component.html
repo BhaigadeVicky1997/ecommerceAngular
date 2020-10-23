@@ -1,5 +1,9 @@
-<div class="container mt-4">
-    
+
+<div class="spinner-border text-secondary" *ngIf="!isLoading" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+<div class="container mt-4" *ngIf="isLoading">
     <button 
     (click)="login()"    
     class="btn btn-primary">
